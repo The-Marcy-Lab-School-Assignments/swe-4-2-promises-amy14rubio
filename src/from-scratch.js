@@ -1,16 +1,39 @@
-const resolvedWrapper = (value) => {
-};
+const resolvedWrapper = (value) => Promise.resolve(value);
 
-const rejectedWrapper = (errorMessage) => {
-};
+const rejectedWrapper = (errorMessage) => Promise.reject(new Error(errorMessage));
 
 const handleResolvedPromise = (promise) => {
+  return promise
+    .then((value) => {
+      console.log(value);
+      return value;
+    })
+    .then((value) => {
+      return value.toUpperCase();
+    });
 };
 
 const handleResolvedOrRejectedPromise = (promise) => {
+  return promise
+    .then((value) => {
+      console.log(value);
+      return value;
+    })
+    .then((value) => {
+      return value.toUpperCase();
+    })
+    .catch((error) => {
+      console.error(`Your error message was: ${error.message}`);
+      return null;
+    });
 };
 
 const pauseForMs = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
 };
 
 module.exports = {
